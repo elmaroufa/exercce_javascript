@@ -25,3 +25,30 @@ const uniqueColors = colors.reduce(
 );
 
 console.log(uniqueColors);
+
+// recursion seach data structure
+
+const deepPick = (fields, object = {}) => {
+  const [first, ...remaining] = fields.split(".");
+  return remaining.length
+    ? deepPick(remaining.join("."), object[first])
+    : object[first];
+};
+
+
+const dan = {
+  type: "person",
+  data: {
+    gender: "male",
+    info: {
+      id: 22,
+      fullname: {
+        first: "Dan",
+        last: "Deacon"
+      }
+    }
+  }
+};
+
+deepPick("type", dan); // "person"
+deepPick("data.info.fullname.first", dan); // "Dan"
